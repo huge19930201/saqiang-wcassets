@@ -107,6 +107,10 @@ make package DEBUG=0
 
 ## 五之二、GitHub Actions 云端编译（无需本地 Mac）
 
+> **已验证构建（2026-11-17）**：本工程已推送至 https://github.com/huge19930201/saqiang-wcassets ，
+> GitHub Actions 运行 `44089880001` 编译成功，产出 `SaoqiangWCAssets.dylib`（ARM64，147 KB）和 `.deb`。
+> 产物下载：https://github.com/huge19930201/saqiang-wcassets/actions/runs/44089880001
+
 工程已内置 `.github/workflows/build.yml`，用 GitHub 的 macOS runner + Theos 在云端编译，产出可直接注入的 dylib。
 
 **步骤：**
