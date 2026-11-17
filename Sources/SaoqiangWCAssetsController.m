@@ -7,22 +7,23 @@
 #import "SaoqiangWCAssetsStore.h"
 #import "SaoqiangWCAssetsFeatures.h"
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
+#import <objc/message.h>
 
 // CI 使用的 SDK 版本较旧，用运行时选择器兼容 UIColor 的动态颜色 API
-static UIColor *SQSystemBackground(void) {
-    SEL sel = NSSelectorFromString(@"systemBackground");
+static UIColor *SQDynamicColor(NSString *name, UIColor *fallback) {
+    SEL sel = NSSelectorFromString(name);
     if ([UIColor respondsToSelector:sel]) {
-        return [UIColor performSelector:sel];
+        return ((UIColor *(*)(id, SEL))objc_msgSend)([UIColor class], sel);
     }
-    return [UIColor whiteColor];
+    return fallback;
+}
+
+static UIColor *SQSystemBackground(void) {
+    return SQDynamicColor(@"systemBackground", [UIColor whiteColor]);
 }
 
 static UIColor *SQSecondaryLabel(void) {
-    SEL sel = NSSelectorFromString(@"secondaryLabelColor");
-    if ([UIColor respondsToSelector:sel]) {
-        return [UIColor performSelector:sel];
-    }
-    return [UIColor darkGrayColor];
+    return SQDynamicColor(@"secondaryLabelColor", [UIColor darkGrayColor]);
 }
 
 @interface SaoqiangWCAssetsController () <UISearchResultsUpdating, UIDocumentPickerDelegate>

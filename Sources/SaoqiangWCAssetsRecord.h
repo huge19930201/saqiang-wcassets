@@ -67,6 +67,7 @@ typedef NS_ENUM(NSInteger, SaoqiangWCAssetsSource) {
                          path:(nullable NSString *)path
                           svg:(BOOL)isSVG NS_DESIGNATED_INITIALIZER;
 - (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithCoder:(NSCoder *)c NS_DESIGNATED_INITIALIZER;
 
 /// 计算内容哈希并写入 sha256 / captureKey。返回是否发生了变化。
 - (BOOL)refreshHash;

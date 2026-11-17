@@ -6,6 +6,7 @@
 //  本复刻沿用同一机制；所有 IMP 通过 SQHook() 保存原始实现并用 token 做幂等。
 //
 
+#import "SaoqiangWCAssetsHooks.h"
 #import "SaoqiangWCAssetsCommon.h"
 #import "SaoqiangWCAssetsStore.h"
 #import "SaoqiangWCAssetsEntry.h"
@@ -193,7 +194,7 @@ static void SQHook_viewDidAppear(id self, SEL _cmd) {
 + (void)installAllHooks {
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        [self install UIImageHooks];
+        [self installUIImageHooks];
         [self installWeChatHooks];
         SQWLog(@"Hook 安装完成，enabled=%@", @([SaoqiangWCAssetsStore shared].enabled));
     });
