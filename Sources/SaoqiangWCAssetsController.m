@@ -8,6 +8,23 @@
 #import "SaoqiangWCAssetsFeatures.h"
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
+// CI 使用的 SDK 版本较旧，用运行时选择器兼容 UIColor 的动态颜色 API
+static UIColor *SQSystemBackground(void) {
+    SEL sel = NSSelectorFromString(@"systemBackground");
+    if ([UIColor respondsToSelector:sel]) {
+        return [UIColor performSelector:sel];
+    }
+    return [UIColor whiteColor];
+}
+
+static UIColor *SQSecondaryLabel(void) {
+    SEL sel = NSSelectorFromString(@"secondaryLabelColor");
+    if ([UIColor respondsToSelector:sel]) {
+        return [UIColor performSelector:sel];
+    }
+    return [UIColor darkGrayColor];
+}
+
 @interface SaoqiangWCAssetsController () <UISearchResultsUpdating, UIDocumentPickerDelegate>
 @property (nonatomic, strong) NSArray<SaoqiangWCAssetsRecord *> *rows;
 @property (nonatomic, copy) NSString *keyword;
@@ -22,7 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"微信资源";
-    self.view.backgroundColor = [UIColor systemBackground];
+    self.view.backgroundColor = SQSystemBackground();
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     self.tableView.rowHeight = 66;
 
@@ -37,7 +54,7 @@
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 96)];
     self.summary = [[UILabel alloc] initWithFrame:CGRectMake(16, 6, header.frame.size.width - 32, 22)];
     self.summary.font = [UIFont systemFontOfSize:12];
-    self.summary.textColor = [UIColor secondaryLabelColor];
+    self.summary.textColor = SQSecondaryLabel();
     self.summary.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [header addSubview:self.summary];
 
@@ -219,7 +236,7 @@
 - (void)showText:(NSString *)text title:(NSString *)title {
     UIViewController *vc = [UIViewController new];
     vc.title = title;
-    vc.view.backgroundColor = [UIColor systemBackground];
+    vc.view.backgroundColor = SQSystemBackground();
     UITextView *tv = [[UITextView alloc] initWithFrame:vc.view.bounds];
     tv.text = text;
     tv.font = [UIFont fontWithName:@"Menlo" size:12];
@@ -249,7 +266,7 @@
     cell.detailTextLabel.text = r.detailText;
     if (cell.imageView) {
         UIImage *th = r.thumbnail;
-        CGSize side = 44;
+        CGSize side = CGSizeMake(44, 44);
         UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:side];
         cell.imageView.image = [renderer imageWithActions:^(UIGraphicsImageRendererContext *ctx) {
             if (th) {
@@ -275,7 +292,7 @@
 - (void)showRecord:(SaoqiangWCAssetsRecord *)r {
     UIViewController *vc = [UIViewController new];
     vc.title = r.name;
-    vc.view.backgroundColor = [UIColor systemBackground];
+    vc.view.backgroundColor = SQSystemBackground();
     UIScrollView *scroll = [[UIScrollView alloc] initWithFrame:vc.view.bounds];
     scroll.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     UIImageView *iv = [[UIImageView alloc] initWithImage:r.thumbnail ?: [UIImage systemImageNamed:@"photo"]];

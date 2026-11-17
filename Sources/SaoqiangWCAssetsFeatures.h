@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SaoqiangWCAssetsThemePack : NSObject
 /// 校验目录是否是合法主题包（需含 theme.plist / info.plist）
-+ (BOOL)validateThemeFolder:(NSURL *)url errors:(NSArray<NSString *> **)errors;
++ (BOOL)validateThemeFolder:(NSURL *)url errors:(NSArray<NSString *> * _Nullable * _Nullable)errors;
 /// 备份现有主题目录到备份根，返回备份路径
 + (NSURL *)backupCurrentThemeAt:(NSURL *)current error:(NSError **)error;
 /// 从备份回滚（先清空 current 再拷贝回来）
