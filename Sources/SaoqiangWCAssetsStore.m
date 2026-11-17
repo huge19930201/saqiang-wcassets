@@ -15,7 +15,7 @@
 @property (nonatomic, assign) NSUInteger total;
 @property (nonatomic, assign) NSUInteger dropped;
 @property (nonatomic, assign) NSUInteger active;
-@property (nonatomic, copy) NSString *pageKey;
+@property (nonatomic, copy, readwrite, nullable) NSString *pageKey;
 @end
 
 @implementation SaoqiangWCAssetsStore
