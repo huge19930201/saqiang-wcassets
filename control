@@ -1,0 +1,10 @@
+Package: com.saoqiang.wcassets.rebuilt
+Name: SaoqiangWCAssets (Rebuilt)
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: WeChat 资源发现 / 提取 / 主题 DIY 工具的源码复刻版。基于对 SaoqiangWCAssets.dylib 的二进制分析重建，无 Substrate 依赖，适用于 TrollStore 注入。
+Depicts: SaoqiangWCAssets
+Maintainer: Rebuilt from binary analysis
+Author: reconstructed
+Section: Tweaks
+Depends:
